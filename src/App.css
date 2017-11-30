@@ -1,0 +1,62 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+}
+
+.App-header {
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+.App-intro {
+    font-size: large;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/*increase max view of container*/
+@media only screen and (min-width: 1200px) {
+    .container {
+        width: 99%;
+    }
+}
+
+/*make table */
+td {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 12px;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    /*border-top: none !important;*/
+    border-top-color: aliceblue !important;
+
+}
+
+td.textColumn {
+    white-space: pre-wrap;
+}
+
+/*td.numberColumn {*/
+    /*text-align: center;*/
+/*}*/
+
+/*tr.textRow {*/
+/*}*/
+
