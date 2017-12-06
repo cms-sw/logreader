@@ -43,21 +43,6 @@ class FileOutput extends Component {
                 console.log('Fetch Error :-S', err);
             });
 
-
-        // fetch()
-        // axios({
-        //     method: 'get',
-        //     url: fileUrl,
-        //     responseType: 'text',
-        //     transformResponse: [function (data) {
-        //         console.log(JSON.stringify(data));
-        //         return JSON.stringify(data);
-        //     }]
-        // }).then(function (response) {
-        //     object.setState({file: response.data})
-        // }).catch(function (error) {
-        //     console.log(error);
-        // });
     }
 
 
@@ -72,13 +57,11 @@ class FileOutput extends Component {
     componentWillMount() {
         // '/data/level1/level2/thread.log'
         this.requestFile(this.props.location.pathname);
-        // this.requestFile("http://www.google.com");
     }
 
     // called on updating properties
     componentWillReceiveProps(newProps) {
         this.requestFile(newProps.location.pathname)
-        // this.requestFile("http://www.google.com");
 
     }
 

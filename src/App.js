@@ -5,6 +5,7 @@ import {HashRouter, Route, Switch} from "react-router-dom";
 // Componenets
 import FileOutput from './Components/FileOutput'
 import Search from "./Components/Search";
+import CellMeasurerExample from "./Components/CellMeasurerExample";
 
 //------------------------------------------
 //      Main entry component
@@ -26,7 +27,7 @@ class App extends Component {
                         <Route exact path="/"
                                render={(props) => ( <Search {...props}/> )}/>
                         <Route path="/"
-                               render={(props) => ( <FileOutput {...props} /> )}/>
+                               render={(props) => ( <CellMeasurerExample {...props} /> )}/>
                     </Switch>
 
                 </div>

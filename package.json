@@ -50,6 +50,7 @@
     "react-scrollchor": "^4.1.0",
     "react-sticky": "^6.0.1",
     "react-stickynode": "^1.4.0",
+    "react-virtualized": "^9.13.0",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
     "underscore": "^1.8.3",
