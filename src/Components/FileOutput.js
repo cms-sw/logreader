@@ -91,7 +91,7 @@ class FileOutput extends Component {
             <div className={"container"}>
                 <Controls informHeight={this.updateHeight.bind(this)}/>
                 <div className={"AutoSizerWrapper"} style={{height:`calc(100vh - ${this.state.controlHeight}px)`}}>
-                    <InfiniteScroller data={text.split("\n")}/>
+                    <InfiniteScroller data={text.split("\n")} />
                 </div>
             </div>
         )

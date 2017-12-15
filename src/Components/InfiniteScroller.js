@@ -8,7 +8,6 @@ class InfiniteScroller extends Component {
             fixedWidth: true,
             defaultHeight: 50
         });
-        this.info = [1, 2, 3, 4, 5];
         this.state = {
             currentLineSt: 50,
             currentLineEnd: 100,
@@ -37,14 +36,23 @@ class InfiniteScroller extends Component {
         )
     };
 
+    componentDidUpdate() {
+        this.myInfiniteList.forceUpdateGrid();
+        this.myInfiniteList.scrollToRow();
+    }
+
+    componentDidMount() {
+        this.myInfiniteList.forceUpdateGrid();
+        this.myInfiniteList.scrollToRow();
+    }
+
     render() {
         return (
             <AutoSizer>
                 {
                     ({width, height}) => {
                         return <List
-                            forceUpdateGrid
-                            scrollToIndex={1000}
+                            ref={(ref) => this.myInfiniteList = ref}
                             rowCount={this.props.data.length}
                             width={width}
                             height={height}

@@ -27,7 +27,6 @@ class App extends Component {
                         <Route path="/"
                                render={(props) => ( <FileOutput {...props} /> )}/>
                     </Switch>
-
             </HashRouter>
         );
     }
