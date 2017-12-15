@@ -34,7 +34,6 @@ class FileOutput extends Component {
                             response.status);
                         return;
                     }
-
                     // Examine the text in the response
                     response.text().then(function (data) {
                         object.setState({file: data})
@@ -45,7 +44,6 @@ class FileOutput extends Component {
             .catch(function (err) {
                 console.log('Fetch Error :-S', err);
             });
-
     }
 
 
@@ -65,14 +63,13 @@ class FileOutput extends Component {
     // called on updating properties
     componentWillReceiveProps(newProps) {
         this.requestFile(newProps.location.pathname)
-
     }
 
     // called after first render
     componentDidMount() {
         // Scroll to element view
         this.goToLine();
-    };
+    }
 
     // called after sequential render
     componentDidUpdate() {
@@ -90,39 +87,6 @@ class FileOutput extends Component {
         if (!text) {
             return <h3>Loading</h3>;
         }
-        // return (
-        //     <div>
-        //         <h1></h1>
-        //         <Table bordered={false} condensed={true} hover>
-        //             <tbody>
-        //             {text.split("\n").map((line, pos) => {
-        //
-        //                 // color selected lines
-        //                 let rowClass = "textRow";
-        //                 if (lineEnd) {
-        //                     if (pos >= lineStart && pos <= lineEnd) {
-        //                         rowClass += " success";
-        //                     }
-        //                 } else {
-        //                     if (pos === lineStart) {
-        //                         rowClass += " success";
-        //                     }
-        //                 }
-        //
-        //                 return (
-        //                     <tr key={uuid.v4()} className={rowClass}>
-        //                         <td className={"numberColumn"}>
-        //                             <Link to={"#" + pos}>{pos}</Link>
-        //                         </td>
-        //                         <td className={"textColumn"} id={pos}>{line}</td>
-        //                     </tr>
-        //                 )
-        //             })}
-        //             </tbody>
-        //         </Table>
-        //     </div>
-        // )
-        console.log(this.state.controlHeight);
         return (
             <div className={"container"}>
                 <Controls informHeight={this.updateHeight.bind(this)}/>

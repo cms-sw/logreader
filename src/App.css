@@ -52,13 +52,6 @@ td.textColumn {
     white-space: pre-wrap;
 }
 
-/*td.numberColumn {*/
-    /*text-align: center;*/
-/*}*/
-
-/*tr.textRow {*/
-/*}*/
-
 .code-line {
     font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 12px;
@@ -93,11 +86,13 @@ td.textColumn {
     height: auto;
 }
 
-/*.AutoSizerWrapper {*/
-    /*flex: 1 1 auto;*/
-/*}*/
-
 .AutoSizerWrapper {
     height: calc(100vh - 200px);
-    padding: 5px 0px;
+    padding: 10px 0px;
+    table-border-color-dark: auto;
 }
+
+.code-line-focus{
+    background-color: #33cc33;
+}
+
