@@ -8,16 +8,24 @@ class InfiniteScroller extends Component {
             fixedWidth: true,
             defaultHeight: 50
         });
+
         this.state = {
-            currentLineSt: 50,
-            currentLineEnd: 100,
+            currentLineSt: props.currentLineSt,
+            currentLineEnd: props.currentLineEnd,
         }
     }
 
     renderRow = ({index, parent, key, style}) => {
         let className = "code-line";
-        if (this.state.currentLineSt <= index && this.state.currentLineEnd >= index) {
-            className += " code-line-focus";
+
+        if (this.state.currentLineSt && this.state.currentLineEnd) {
+            if (this.state.currentLineSt <= index && this.state.currentLineEnd >= index) {
+                className += " code-line-focus";
+            }
+        } else if (this.state.currentLineSt) {
+            if (this.state.currentLineSt === index) {
+                className += " code-line-focus";
+            }
         }
 
         return (
@@ -36,14 +44,28 @@ class InfiniteScroller extends Component {
         )
     };
 
-    componentDidUpdate() {
+    updatePosition() {
         this.myInfiniteList.forceUpdateGrid();
-        this.myInfiniteList.scrollToRow();
+        const goToLine = this.state.currentLineSt;
+        if (goToLine) {
+            this.myInfiniteList.scrollToRow(goToLine);
+        }
+    }
+
+    componentDidUpdate() {
+        this.updatePosition();
     }
 
     componentDidMount() {
-        this.myInfiniteList.forceUpdateGrid();
-        this.myInfiniteList.scrollToRow();
+        this.updatePosition();
+    }
+
+    componentWillReceiveProps(newProps) {
+        const {currentLineSt, currentLineEnd} = newProps
+        this.setState({
+            currentLineSt,
+            currentLineEnd
+        });
     }
 
     render() {
