@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import {Button, Jumbotron, Panel, PanelGroup, Table} from "react-bootstrap";
-import {HashLink as Link} from 'react-router-hash-link';
-import uuid from 'uuid';
 import InfiniteScroller from "./InfiniteScroller";
 import Controls from "./Controls";
 
@@ -10,7 +7,8 @@ class FileOutput extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            controlHeight: 100
+            controlHeight: 100,
+            indexList: props.indexList ? props.indexList : []
         }
     }
 
@@ -22,11 +20,11 @@ class FileOutput extends Component {
         }
     }
 
-    requestFile(fileUrl) {
+    requestFile({propertyName, fileUrl, mode = 'cors', fileType = 'text'}) {
         fileUrl = fileUrl.substring(1);
         console.log(fileUrl);
         const object = this;
-        fetch(fileUrl, {mode: 'cors'})
+        fetch(fileUrl, {mode: mode})
             .then(
                 function (response) {
                     if (response.status !== 200) {
@@ -34,18 +32,28 @@ class FileOutput extends Component {
                             response.status);
                         return;
                     }
-                    // Examine the text in the response
-                    response.text().then(function (data) {
-                        object.setState({file: data})
-                        // console.log(data);
-                    });
+                    if (fileType = "json") {
+                        // Examine the text in the response
+                        response.json().then(function (data) {
+                            let conf = {};
+                            conf[propertyName] = data;
+                            object.setState(conf);
+                        });
+                    } else if (fileType = "text") {
+                        // Examine the text in the response
+                        response.text().then(function (data) {
+                            let conf = {};
+                            conf[propertyName] = data;
+                            object.setState(conf);
+                        });
+                    }
+
                 }
             )
             .catch(function (err) {
                 console.log('Fetch Error :-S', err);
             });
     }
-
 
     getLinesNumbers() {
         let [lineStart, lineEnd] = this.props.location.hash.substring(1).split("-");
@@ -56,13 +64,14 @@ class FileOutput extends Component {
 
     // called before first render
     componentWillMount() {
-        // '/data/level1/level2/thread.log'
-        this.requestFile(this.props.location.pathname);
+        this.requestFile({propertyName: 'file', fileUrl: this.props.location.pathname});
+        this.requestFile({propertyName: 'fileConfig', fileUrl: this.props.location.pathname + "_json", fileType: "json"});
     }
 
     // called on updating properties
     componentWillReceiveProps(newProps) {
-        this.requestFile(newProps.location.pathname)
+        this.requestFile({propertyName: 'file', fileUrl: newProps.location.pathname});
+        this.requestFile({propertyName: 'fileConfig', fileUrl: newProps.location.pathname + "_json", fileType: "json"});
     }
 
     // called after first render
@@ -87,10 +96,13 @@ class FileOutput extends Component {
         if (!text) {
             return <h3>Loading</h3>;
         }
+        console.log(this.state.fileConfig);
         return (
             <div className={"container"}>
-                <Controls informHeight={this.updateHeight.bind(this)}/>
-                <div className={"AutoSizerWrapper"} style={{height:`calc(100vh - ${this.state.controlHeight}px)`}}>
+                <Controls
+                    informHeight={this.updateHeight.bind(this)}
+                    fileConfig={this.state.fileConfig}/>
+                <div className={"AutoSizerWrapper"} style={{height: `calc(100vh - ${this.state.controlHeight}px)`}}>
                     <InfiniteScroller data={text.split("\n")} currentLineSt={lineStart} currentLineEnd={lineEnd}/>
                 </div>
             </div>

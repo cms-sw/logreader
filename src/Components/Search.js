@@ -7,9 +7,7 @@ class Search extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
-
-        }
+        this.state = {}
     }
 
     // componentWillMount() {
@@ -35,8 +33,13 @@ class Search extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const link = this.state.linkToFile + "#" + this.state.lineStart + "-" + this.state.lineEnd;
-        console.log(link);
+        let link = this.state.linkToFile;
+        if (this.state.lineStart) {
+            link += "#" + this.state.lineStart;
+        }
+        if (this.state.lineEnd){
+            link += "-" + this.state.lineEnd;
+        }
         this.props.history.push(link)
     };
 
@@ -58,7 +61,8 @@ class Search extends Component {
                                 Line from
                             </Col>
                             <Col sm={1}>
-                                <FormControl type="number" placeholder="ex. 0" onChange={this.onUpdateProp("lineStart")}/>
+                                <FormControl type="number" placeholder="ex. 0"
+                                             onChange={this.onUpdateProp("lineStart")}/>
                             </Col>
 
                         </FormGroup>

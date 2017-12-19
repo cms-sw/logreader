@@ -8,10 +8,10 @@ class InfiniteScroller extends Component {
             fixedWidth: true,
             defaultHeight: 50
         });
-
         this.state = {
             currentLineSt: props.currentLineSt,
             currentLineEnd: props.currentLineEnd,
+            data: props.data
         }
     }
 
@@ -38,7 +38,7 @@ class InfiniteScroller extends Component {
             >
                 <div style={style} className={className}>
                     <span className={"code-index"}><b>{index}: </b></span>
-                    <span className={"code"} style={{whiteSpace: "pre-wrap"}}>{this.props.data[index]}</span>
+                    <span className={"code"} style={{whiteSpace: "pre-wrap"}}>{this.state.data[index]}</span>
                 </div>
             </CellMeasurer>
         )
@@ -61,10 +61,15 @@ class InfiniteScroller extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        const {currentLineSt, currentLineEnd} = newProps
+        const {currentLineSt, currentLineEnd, data} = newProps;
         this.setState({
             currentLineSt,
-            currentLineEnd
+            currentLineEnd,
+            data
+        });
+        this.cache = new CellMeasurerCache({
+            fixedWidth: true,
+            defaultHeight: 50
         });
     }
 
