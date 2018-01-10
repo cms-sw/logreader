@@ -32,22 +32,23 @@ class FileOutput extends Component {
                             response.status);
                         return;
                     }
-                    if (fileType = "json") {
-                        // Examine the text in the response
+                    if (fileType === "json") {
+                        // Examine the text in the response as JSON
                         response.json().then(function (data) {
                             let conf = {};
                             conf[propertyName] = data;
                             object.setState(conf);
+                        }).catch(() => {
+                            console.log('The file is not proper JSON type.');
                         });
-                    } else if (fileType = "text") {
-                        // Examine the text in the response
+                    } else if (fileType === "text") {
+                        // Examine the text in the response as text
                         response.text().then(function (data) {
                             let conf = {};
                             conf[propertyName] = data;
                             object.setState(conf);
                         });
                     }
-
                 }
             )
             .catch(function (err) {
@@ -65,7 +66,11 @@ class FileOutput extends Component {
     // called before first render
     componentWillMount() {
         this.requestFile({propertyName: 'file', fileUrl: this.props.location.pathname});
-        this.requestFile({propertyName: 'fileConfig', fileUrl: this.props.location.pathname + "_json", fileType: "json"});
+        this.requestFile({
+            propertyName: 'fileConfig',
+            fileUrl: this.props.location.pathname + "_json",
+            fileType: "json"
+        });
     }
 
     // called on updating properties
@@ -96,6 +101,7 @@ class FileOutput extends Component {
         if (!text) {
             return <h3>Loading</h3>;
         }
+        console.log("config");
         console.log(this.state.fileConfig);
         return (
             <div className={"container"}>
@@ -108,6 +114,7 @@ class FileOutput extends Component {
             </div>
         )
     }
+
 }
 
 export default FileOutput;
