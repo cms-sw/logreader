@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Checkbox, ControlLabel, Form, FormControl, FormGroup, Row} from "react-bootstrap";
+import {Button, ControlLabel, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Col from "react-bootstrap/es/Col";
 
 // This class gets data
@@ -11,11 +11,9 @@ class Search extends Component {
     }
 
     // componentWillMount() {
-    //
     // }
-    //
+
     // componentWillReceiveProps(newProps) {
-    //
     // }
 
     // componentDidMount() {

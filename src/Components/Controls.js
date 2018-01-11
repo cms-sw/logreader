@@ -31,8 +31,18 @@ class Controls extends Component {
         this.getHeight();
     };
 
+    // called on updating properties
+    componentWillReceiveProps(newProps) {
+        if (newProps.fileConfig){
+            let fileConfig = newProps.fileConfig;
+            this.setState({fileConfig});
+        } else {
+            let fileConfig = [];
+            this.setState({fileConfig});
+        }
+    }
+
     render() {
-        console.log(this.state.fileConfig);
         return (
             <div id={"control"} style={{paddingTop: 10}}>
                 <Navbar>
@@ -45,10 +55,10 @@ class Controls extends Component {
                         <p className={"navbar-text"}>
                             <b>Go to</b>
                         </p>
-                        <NavDropdown eventKey={3} title="Issues" id="basic-nav-dropdown">
+                        <NavDropdown title="Issues" id="basic-nav-dropdown">
                             {this.state.fileConfig.map(item => {
-                                return (
-                                        <LinkContainer key={uuid.v4()} to={'/' + item.start} activeClassName="active">
+                                    return (
+                                        <LinkContainer key={uuid.v4()} to={'/' + item.start}>
                                             <NavItem>{item.name}</NavItem>
                                         </LinkContainer>
                                     )

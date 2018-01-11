@@ -22,7 +22,6 @@ class FileOutput extends Component {
 
     requestFile({propertyName, fileUrl, mode = 'cors', fileType = 'text'}) {
         fileUrl = fileUrl.substring(1);
-        console.log(fileUrl);
         const object = this;
         fetch(fileUrl, {mode: mode})
             .then(
@@ -66,9 +65,11 @@ class FileOutput extends Component {
     // called before first render
     componentWillMount() {
         this.requestFile({propertyName: 'file', fileUrl: this.props.location.pathname});
+        // reset Control config
+        this.setState({fileConfig: undefined});
         this.requestFile({
             propertyName: 'fileConfig',
-            fileUrl: this.props.location.pathname + "_json",
+            fileUrl: this.props.location.pathname + "-read_config",
             fileType: "json"
         });
     }
@@ -76,7 +77,13 @@ class FileOutput extends Component {
     // called on updating properties
     componentWillReceiveProps(newProps) {
         this.requestFile({propertyName: 'file', fileUrl: newProps.location.pathname});
-        this.requestFile({propertyName: 'fileConfig', fileUrl: newProps.location.pathname + "_json", fileType: "json"});
+        // reset Control config
+        this.setState({fileConfig: undefined});
+        this.requestFile({
+            propertyName: 'fileConfig',
+            fileUrl: newProps.location.pathname + "-read_config",
+            fileType: "json"
+        });
     }
 
     // called after first render
@@ -97,17 +104,18 @@ class FileOutput extends Component {
 
     render() {
         let text = this.state.file;
+        const problemsToShow = this.state.fileConfig ? this.state.fileConfig.list_to_show : undefined;
         const [lineStart, lineEnd] = this.getLinesNumbers();
         if (!text) {
             return <h3>Loading</h3>;
         }
-        console.log("config");
-        console.log(this.state.fileConfig);
+        console.log("problems to show");
+        console.log(problemsToShow);
         return (
             <div className={"container"}>
                 <Controls
                     informHeight={this.updateHeight.bind(this)}
-                    fileConfig={this.state.fileConfig}/>
+                    fileConfig={problemsToShow}/>
                 <div className={"AutoSizerWrapper"} style={{height: `calc(100vh - ${this.state.controlHeight}px)`}}>
                     <InfiniteScroller data={text.split("\n")} currentLineSt={lineStart} currentLineEnd={lineEnd}/>
                 </div>
