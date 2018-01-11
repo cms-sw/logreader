@@ -109,11 +109,10 @@ class FileOutput extends Component {
         if (!text) {
             return <h3>Loading</h3>;
         }
-        console.log("problems to show");
-        console.log(problemsToShow);
         return (
             <div className={"container"}>
                 <Controls
+                    location={this.props.location}
                     informHeight={this.updateHeight.bind(this)}
                     fileConfig={problemsToShow}/>
                 <div className={"AutoSizerWrapper"} style={{height: `calc(100vh - ${this.state.controlHeight}px)`}}>

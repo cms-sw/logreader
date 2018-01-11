@@ -1,0 +1,19 @@
+{
+    "list_to_show": [
+        {
+            "lineStart" : 1,
+            "lineEnd": 10,
+            "name": "Error_1"
+        },
+        {
+            "lineStart" : 100,
+            "lineEnd": 105,
+            "name": "Error_2"
+        },
+        {
+            "lineStart" : 120,
+            "lineEnd": 125,
+            "name": "Error_3"
+        }
+    ]
+}

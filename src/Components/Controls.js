@@ -33,7 +33,7 @@ class Controls extends Component {
 
     // called on updating properties
     componentWillReceiveProps(newProps) {
-        if (newProps.fileConfig){
+        if (newProps.fileConfig) {
             let fileConfig = newProps.fileConfig;
             this.setState({fileConfig});
         } else {
@@ -58,13 +58,17 @@ class Controls extends Component {
                         <NavDropdown title="Issues" id="basic-nav-dropdown">
                             {this.state.fileConfig.map(item => {
                                     return (
-                                        <LinkContainer key={uuid.v4()} to={'/' + item.start}>
+                                        <LinkContainer key={uuid.v4()}
+                                                       to={this.props.location.pathname + "#" + item.lineStart + "-" + item.lineEnd}>
                                             <NavItem>{item.name}</NavItem>
                                         </LinkContainer>
                                     )
                                 }
                             )}
                         </NavDropdown>
+                        <NavItem href={window.location.origin + this.props.location.pathname + "?raw=true"}>
+                            Get raw file
+                        </NavItem>
                     </Nav>
                 </Navbar>
             </div>

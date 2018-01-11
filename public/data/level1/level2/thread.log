@@ -1,0 +1,185 @@
+Thu Nov 30 03:43:23 2017 cp -p /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/driver150a.sh /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/1512009762/150/driver150a.sh 
+Thu Nov 30 03:43:24 2017 cd /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/1512009762/150 && source /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/1512009762/150/driver150a.shThu Nov 30 03:43:35 2017After running CMSSW, this is the exit code 0Thu Nov 30 03:43:35 2017
+ 2017-11-30 03:43:26,009: mbProfile            - INFO     - Copying /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/data/html/mbGraph.js to memory_25202.0/mbGraph.js
+2017-11-30 03:43:26,020: mbProfile            - INFO     - Copying /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/data/html/mbGraph.html to memory_25202.0/mbGraph.html
+2017-11-30 03:43:26,020: mbProfile            - INFO     - Creating memory_25202.0/mbGraph.json
+2017-11-30 03:43:26,365: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16482/statm'
+2017-11-30 03:43:26,377: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16486/statm'
+2017-11-30 03:43:26,379: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16700/statm'
+2017-11-30 03:43:26,380: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16707/statm'
+2017-11-30 03:43:26,380: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16708/statm'
+2017-11-30 03:43:26,381: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16713/statm'
+2017-11-30 03:43:26,381: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16716/statm'
+2017-11-30 03:43:26,382: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16719/statm'
+2017-11-30 03:43:26,382: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16720/statm'
+2017-11-30 03:43:26,384: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16721/statm'
+2017-11-30 03:43:26,385: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16722/statm'
+2017-11-30 03:43:26,385: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16725/statm'
+2017-11-30 03:43:26,386: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16726/statm'
+2017-11-30 03:43:26,386: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16729/statm'
+2017-11-30 03:43:26,387: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16730/statm'
+2017-11-30 03:43:26,387: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16731/statm'
+2017-11-30 03:43:26,388: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16732/statm'
+2017-11-30 03:43:26,388: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16733/statm'
+2017-11-30 03:43:26,389: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/16734/statm'
+2017-11-30 03:43:26,441: mbProfile            - INFO     - Written profile to: memory_25202.0/performance.json, took=0.400
+processing relval_standard
+processing relval_highstats
+processing relval_pileup
+processing relval_generator
+processing relval_extendedgen
+processing relval_production
+processing relval_ged
+ignoring relval_upgrade from default matrix
+processing relval_2017
+processing relval_2023
+ignoring relval_identity from default matrix
+processing relval_machine
+processing relval_unsch
+processing relval_premix
+Running in 4 thread(s)
+
+Preparing to run 25202.0 TTbar_13+TTbar_13+DIGIUP15_PU25+RECOUP15_PU25+HARVESTUP15_PU25
+
+# in: /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/1512009762/150 going to execute cd 25202.0_TTbar_13+TTbar_13+DIGIUP15_PU25+RECOUP15_PU25+HARVESTUP15_PU25
+ cmsDriver.py TTbar_13TeV_TuneCUETP8M1_cfi  --conditions auto:run2_mc -n 10 --era Run2_2016 --eventcontent FEVTDEBUG --relval 9000,50 -s GEN,SIM --datatier GEN-SIM --beamspot Realistic50ns13TeVCollision --fileout file:step1.root  > step1_TTbar_13+TTbar_13+DIGIUP15_PU25+RECOUP15_PU25+HARVESTUP15_PU25.log  2>&1
+ 
+ERROR executing  cd 25202.0_TTbar_13+TTbar_13+DIGIUP15_PU25+RECOUP15_PU25+HARVESTUP15_PU25; cmsDriver.py TTbar_13TeV_TuneCUETP8M1_cfi  --conditions auto:run2_mc -n 10 --era Run2_2016 --eventcontent FEVTDEBUG --relval 9000,50 -s GEN,SIM --datatier GEN-SIM --beamspot Realistic50ns13TeVCollision --fileout file:step1.root  > step1_TTbar_13+TTbar_13+DIGIUP15_PU25+RECOUP15_PU25+HARVESTUP15_PU25.log  2>&1;  ret= 256
+25202.0_TTbar_13+TTbar_13+DIGIUP15_PU25+RECOUP15_PU25+HARVESTUP15_PU25 Step0-FAILED Step1-NOTRUN Step2-NOTRUN Step3-NOTRUN  - time date Thu Nov 30 03:43:34 2017-date Thu Nov 30 03:43:28 2017; exit: 256 0 0 0
+0 0 0 0 tests passed, 1 0 0 0 failed
+
+2017-11-30 03:43:35,108: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/18247/statm'
+2017-11-30 03:43:35,117: mbProfile            - WARNING  - Exception in read_procfs.
+Traceback (most recent call last):
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 42, in read_procfs
+    dct["statm"] = read("statm").strip()
+  File "/cvmfs/cms-ib.cern.ch/week0/slc6_amd64_gcc630/cms/cmssw/CMSSW_10_0_X_2017-11-29-2300/bin/slc6_amd64_gcc630/dqm-mbProfile.py", line 23, in read
+    with open(fp) as fd:
+IOError: [Errno 2] No such file or directory: '/proc/20304/statm'
+2017-11-30 03:43:35,196: mbProfile            - INFO     - Written profile to: memory_25202.0/performance.json, took=0.283
+Thu Nov 30 03:43:35 2017 cp -p /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/driver150b.sh /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/1512009762/150/driver150b.sh 
+Thu Nov 30 03:43:35 2017 cd /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/1512009762/150 && source /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/1512009762/150/driver150b.shThu Nov 30 03:43:35 2017After running CMSSW, this is the exit code 0Thu Nov 30 03:43:35 2017
+ 
+Thu Nov 30 03:43:35 2017 cp -p /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/driver150c.sh /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/1512009762/150/driver150c.sh 
+Thu Nov 30 03:43:35 2017 cd /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/1512009762/150 && source /tmp/cmsbuild/workspace/ib-run-qa/CMSSW_10_0_X_2017-11-29-2300/src/DQMServices/Components/test/1512009762/150/driver150c.shThu Nov 30 03:43:36 2017After running CMSSW, this is the exit code 0Thu Nov 30 03:43:36 2017
+ 
