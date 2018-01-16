@@ -51,6 +51,9 @@ class FileOutput extends Component {
                 }
             )
             .catch(function (err) {
+                let conf = {};
+                conf[propertyName] = null;
+                object.setState(conf);
                 console.log('Fetch Error :-S', err);
             });
     }
@@ -69,7 +72,7 @@ class FileOutput extends Component {
         this.setState({fileConfig: undefined});
         this.requestFile({
             propertyName: 'fileConfig',
-            fileUrl: this.props.location.pathname + "-read_config",
+            fileUrl: this.props.location.pathname + "_read_config",
             fileType: "json"
         });
     }
@@ -106,7 +109,9 @@ class FileOutput extends Component {
         let text = this.state.file;
         const problemsToShow = this.state.fileConfig ? this.state.fileConfig.list_to_show : undefined;
         const [lineStart, lineEnd] = this.getLinesNumbers();
-        if (!text) {
+        if (text === null) {
+            return <h3>File does not exist</h3>;
+        } else if (!text) {
             return <h3>Loading</h3>;
         }
         return (
