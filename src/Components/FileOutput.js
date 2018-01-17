@@ -21,7 +21,6 @@ class FileOutput extends Component {
     }
 
     requestFile({propertyName, fileUrl, mode = 'cors', fileType = 'text'}) {
-        fileUrl = fileUrl.substring(1);
         const object = this;
         fetch(fileUrl, {mode: mode})
             .then(
@@ -59,34 +58,41 @@ class FileOutput extends Component {
     }
 
     getLinesNumbers() {
-        let [lineStart, lineEnd] = this.props.location.hash.substring(1).split("-");
+        let [lineStart, lineEnd] = this.props.location.pathname.substring(1).split("-");
         lineStart = lineStart ? Number(lineStart) : undefined;
         lineEnd = lineEnd ? Number(lineEnd) : undefined;
         return [lineStart, lineEnd]
     }
 
-    // called before first render
-    componentWillMount() {
-        this.requestFile({propertyName: 'file', fileUrl: this.props.location.pathname});
+    getFiles() {
+        const host = window.location.hostname;
+        const pathName = window.location.pathname;
+        const protocol = window.location.protocol;
+
+        // manually create links to file
+        let newPathNameRaw = pathName.replace("/SDT/cgi-bin/fileReader/", "/SDT/cgi-bin/buildlogs/raw/");
+        let newPathNameRawConfig = pathName.replace("/SDT/cgi-bin/fileReader/", "/SDT/cgi-bin/buildlogs/raw_read_config/");
+        let urlRaw = protocol + "//" + host + newPathNameRaw;
+        let urlRawConfig = protocol + "//" + host + newPathNameRawConfig;
+        this.requestFile({propertyName: 'file', fileUrl: urlRaw});
+
         // reset Control config
         this.setState({fileConfig: undefined});
         this.requestFile({
             propertyName: 'fileConfig',
-            fileUrl: this.props.location.pathname + "_read_config",
+            fileUrl: urlRawConfig,
             fileType: "json"
         });
     }
 
+    // called before first render
+    componentWillMount() {
+        this.getFiles();
+    }
+
     // called on updating properties
     componentWillReceiveProps(newProps) {
-        this.requestFile({propertyName: 'file', fileUrl: newProps.location.pathname});
-        // reset Control config
-        this.setState({fileConfig: undefined});
-        this.requestFile({
-            propertyName: 'fileConfig',
-            fileUrl: newProps.location.pathname + "-read_config",
-            fileType: "json"
-        });
+        this.getFiles();
     }
 
     // called after first render

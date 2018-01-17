@@ -46,11 +46,6 @@ class Controls extends Component {
         return (
             <div id={"control"} style={{paddingTop: 10}}>
                 <Navbar>
-                    <Navbar.Header>
-                        <Navbar.Brand>
-                            <a href="#">Search</a>
-                        </Navbar.Brand>
-                    </Navbar.Header>
                     <Nav>
                         <p className={"navbar-text"}>
                             <b>Go to</b>

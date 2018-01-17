@@ -1,5 +1,5 @@
 {
-  "name": "cmssw-dashboard",
+  "name": "cmssw-logReader",
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
