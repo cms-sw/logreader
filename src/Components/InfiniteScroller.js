@@ -18,7 +18,7 @@ class InfiniteScroller extends Component {
     renderRow = ({index, parent, key, style}) => {
         let className = "code-line";
 
-        if (this.state.currentLineSt && this.state.currentLineEnd) {
+        if ((this.state.currentLineSt || this.state.currentLineSt === 0 ) && this.state.currentLineEnd) {
             if (this.state.currentLineSt <= index && this.state.currentLineEnd >= index) {
                 className += " code-line-focus";
             }

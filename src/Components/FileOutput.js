@@ -65,23 +65,19 @@ class FileOutput extends Component {
     }
 
     getFiles() {
-        const host = window.location.hostname;
-        const pathName = window.location.pathname;
-        const protocol = window.location.protocol;
-
         // manually create links to file
-        let newPathNameRaw = pathName.replace("/SDT/cgi-bin/fileReader/", "/SDT/cgi-bin/buildlogs/raw/");
-        let newPathNameRawConfig = pathName.replace("/SDT/cgi-bin/fileReader/", "/SDT/cgi-bin/buildlogs/raw_read_config/");
-        let urlRaw = protocol + "//" + host + newPathNameRaw;
-        let urlRawConfig = protocol + "//" + host + newPathNameRawConfig;
-        this.requestFile({propertyName: 'file', fileUrl: urlRaw});
+        const pathName = window.location.pathname;
+        let urlRaw = pathName.replace("/SDT/cgi-bin/fileReader/", "/SDT/cgi-bin/buildlogs/raw/");
+        let urlRawConfig = pathName.replace("/SDT/cgi-bin/fileReader/", "/SDT/cgi-bin/buildlogs/raw_read_config/");
 
+        // will set links to state so it could be passed to child components
+        this.setState({pathName: pathName, urlRaw: urlRaw});
+
+        this.requestFile({propertyName: 'file', fileUrl: urlRaw});
         // reset Control config
         this.setState({fileConfig: undefined});
         this.requestFile({
-            propertyName: 'fileConfig',
-            fileUrl: urlRawConfig,
-            fileType: "json"
+            propertyName: 'fileConfig', fileUrl: urlRawConfig, fileType: "json"
         });
     }
 
@@ -124,6 +120,8 @@ class FileOutput extends Component {
             <div className={"container"}>
                 <Controls
                     location={this.props.location}
+                    pathName={this.state.pathName}
+                    urlRaw={this.state.urlRaw}
                     informHeight={this.updateHeight.bind(this)}
                     fileConfig={problemsToShow}/>
                 <div className={"AutoSizerWrapper"} style={{height: `calc(100vh - ${this.state.controlHeight}px)`}}>

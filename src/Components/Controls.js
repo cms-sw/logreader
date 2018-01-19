@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import uuid from 'uuid'
-import {Nav, Navbar, NavDropdown, NavItem} from "react-bootstrap";
-import {LinkContainer} from "react-router-bootstrap";
+import {MenuItem, Nav, Navbar, NavDropdown, NavItem} from "react-bootstrap";
 
 class Controls extends Component {
     constructor(props) {
@@ -53,15 +52,13 @@ class Controls extends Component {
                         <NavDropdown title="Issues" id="basic-nav-dropdown">
                             {this.state.fileConfig.map(item => {
                                     return (
-                                        <LinkContainer key={uuid.v4()}
-                                                       to={this.props.location.pathname + "#" + item.lineStart + "-" + item.lineEnd}>
-                                            <NavItem>{item.name}</NavItem>
-                                        </LinkContainer>
+                                        <MenuItem key={uuid.v4()}
+                                                  href={this.props.pathName + "#" + item.lineStart + "-" + item.lineEnd}>{item.name}</MenuItem>
                                     )
                                 }
                             )}
                         </NavDropdown>
-                        <NavItem href={window.location.origin + this.props.location.pathname + "?raw=true"}>
+                        <NavItem href={this.props.urlRaw}>
                             Get raw file
                         </NavItem>
                     </Nav>
@@ -69,6 +66,7 @@ class Controls extends Component {
             </div>
         );
     }
+
 }
 
 export default Controls;
