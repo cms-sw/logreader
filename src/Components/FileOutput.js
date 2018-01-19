@@ -67,8 +67,8 @@ class FileOutput extends Component {
     getFiles() {
         // manually create links to file
         const pathName = window.location.pathname;
-        let urlRaw = pathName.replace("/SDT/cgi-bin/fileReader/", "/SDT/cgi-bin/buildlogs/raw/");
-        let urlRawConfig = pathName.replace("/SDT/cgi-bin/fileReader/", "/SDT/cgi-bin/buildlogs/raw_read_config/");
+        let urlRaw = pathName.replace("/SDT/cgi-bin/logreader/", "/SDT/cgi-bin/buildlogs/raw/");
+        let urlRawConfig = pathName.replace("/SDT/cgi-bin/logreader/", "/SDT/cgi-bin/buildlogs/raw_read_config/");
 
         // will set links to state so it could be passed to child components
         this.setState({pathName: pathName, urlRaw: urlRaw});
