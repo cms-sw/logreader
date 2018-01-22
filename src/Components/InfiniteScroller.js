@@ -45,11 +45,14 @@ class InfiniteScroller extends Component {
     };
 
     updatePosition() {
-        this.myInfiniteList.forceUpdateGrid();
         const goToLine = this.state.currentLineSt;
         if (goToLine) {
             this.myInfiniteList.scrollToRow(goToLine);
         }
+    }
+
+    updateGrid(){
+        this.cache.clearAll();
     }
 
     componentDidUpdate() {
@@ -57,7 +60,12 @@ class InfiniteScroller extends Component {
     }
 
     componentDidMount() {
+        window.addEventListener('resize', this.updateGrid.bind(this));
         this.updatePosition();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateGrid.bind(this));
     }
 
     componentWillReceiveProps(newProps) {
@@ -69,7 +77,7 @@ class InfiniteScroller extends Component {
         });
         this.cache = new CellMeasurerCache({
             fixedWidth: true,
-            defaultHeight: 50
+            defaultHeight: 500
         });
     }
 
