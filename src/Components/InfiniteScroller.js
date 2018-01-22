@@ -1,17 +1,21 @@
 import React, {Component} from "react";
-import {List, AutoSizer, CellMeasurer, CellMeasurerCache} from "react-virtualized";
+import {AutoSizer, CellMeasurer, CellMeasurerCache, List} from "react-virtualized";
+
+const cellMeasurerCacheConfig = {
+    fixedWidth: true,
+    defaultHeight: 500
+};
 
 class InfiniteScroller extends Component {
     constructor(props) {
         super(props);
-        this.cache = new CellMeasurerCache({
-            fixedWidth: true,
-            defaultHeight: 50
-        });
+        this.cache = new CellMeasurerCache(cellMeasurerCacheConfig);
         this.state = {
             currentLineSt: props.currentLineSt,
             currentLineEnd: props.currentLineEnd,
-            data: props.data
+            data: props.data,
+            location: props.location,
+            pathName: props.pathName
         }
     }
 
@@ -37,7 +41,9 @@ class InfiniteScroller extends Component {
                 rowIndex={index}
             >
                 <div style={style} className={className}>
-                    <span className={"code-index"}><b>{index}: </b></span>
+                    <span className={"code-index"}>
+                            <a href={this.state.pathName + "#/" + index}>{index}: </a>
+                    </span>
                     <span className={"code"} style={{whiteSpace: "pre-wrap"}}>{this.state.data[index]}</span>
                 </div>
             </CellMeasurer>
@@ -51,7 +57,7 @@ class InfiniteScroller extends Component {
         }
     }
 
-    updateGrid(){
+    updateGrid() {
         this.cache.clearAll();
     }
 
@@ -69,16 +75,14 @@ class InfiniteScroller extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        const {currentLineSt, currentLineEnd, data} = newProps;
+        const {currentLineSt, currentLineEnd, data, location} = newProps;
         this.setState({
             currentLineSt,
             currentLineEnd,
-            data
+            data,
+            location
         });
-        this.cache = new CellMeasurerCache({
-            fixedWidth: true,
-            defaultHeight: 500
-        });
+        this.cache = new CellMeasurerCache(cellMeasurerCacheConfig);
     }
 
     render() {

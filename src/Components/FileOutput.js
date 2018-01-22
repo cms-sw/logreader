@@ -125,7 +125,13 @@ class FileOutput extends Component {
                     informHeight={this.updateHeight.bind(this)}
                     fileConfig={problemsToShow}/>
                 <div className={"AutoSizerWrapper"} style={{height: `calc(100vh - ${this.state.controlHeight}px)`}}>
-                    <InfiniteScroller data={text.split("\n")} currentLineSt={lineStart} currentLineEnd={lineEnd}/>
+                    <InfiniteScroller
+                        data={text.split("\n")}
+                        currentLineSt={lineStart}
+                        currentLineEnd={lineEnd}
+                        location={this.props.location}
+                        pathName={this.state.pathName}
+                    />
                 </div>
             </div>
         )
