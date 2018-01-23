@@ -4,7 +4,7 @@ import Highlight from "react-highlighter";
 
 const cellMeasurerCacheConfig = {
     fixedWidth: true,
-    defaultHeight: 500
+    defaultHeight: 17
 };
 
 class InfiniteScroller extends Component {
@@ -47,7 +47,8 @@ class InfiniteScroller extends Component {
                             <a href={this.state.pathName + "#/" + index}>{index}: </a>
                     </span>
                     <span className={"code"} style={{whiteSpace: "pre-wrap"}}>
-                        <Highlight matchClass="search-match-class" search={searchPhrase}>{this.state.data[index]}</Highlight>
+                        <Highlight matchClass="search-match-class"
+                                   search={searchPhrase ? searchPhrase : ""}>{this.state.data[index]}</Highlight>
                     </span>
                 </div>
             </CellMeasurer>
@@ -57,6 +58,7 @@ class InfiniteScroller extends Component {
     updatePosition() {
         const goToLine = this.state.currentLineSt;
         if (goToLine) {
+            console.log("scrolled to : " + goToLine);
             this.myInfiniteList.scrollToRow(goToLine);
         }
     }
@@ -87,7 +89,7 @@ class InfiniteScroller extends Component {
             location,
             searchPhrase
         });
-        this.cache = new CellMeasurerCache(cellMeasurerCacheConfig);
+        // this.cache = new CellMeasurerCache(cellMeasurerCacheConfig);
     }
 
     render() {
