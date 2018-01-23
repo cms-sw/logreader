@@ -4,6 +4,7 @@ import Highlight from "react-highlighter";
 
 const cellMeasurerCacheConfig = {
     fixedWidth: true,
+    // hard codded to match file line size
     defaultHeight: 17
 };
 
@@ -58,7 +59,6 @@ class InfiniteScroller extends Component {
     updatePosition() {
         const goToLine = this.state.currentLineSt;
         if (goToLine) {
-            console.log("scrolled to : " + goToLine);
             this.myInfiniteList.scrollToRow(goToLine);
         }
     }
@@ -97,15 +97,19 @@ class InfiniteScroller extends Component {
             <AutoSizer>
                 {
                     ({width, height}) => {
-                        return <List
-                            ref={(ref) => this.myInfiniteList = ref}
-                            rowCount={this.props.data.length}
-                            width={width}
-                            height={height}
-                            deferredMeasurementCache={this.cache}
-                            rowHeight={this.cache.rowHeight}
-                            rowRenderer={this.renderRow}
-                        />
+                        return (
+
+                            <List
+                                goToLine={this.state.currentLineSt}
+                                ref={(ref) => this.myInfiniteList = ref}
+                                rowCount={this.props.data.length}
+                                width={width}
+                                height={height}
+                                deferredMeasurementCache={this.cache}
+                                rowHeight={this.cache.rowHeight}
+                                rowRenderer={this.renderRow}
+                            />
+                        )
                     }
                 }
             </AutoSizer>
