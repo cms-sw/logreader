@@ -8,7 +8,8 @@ class FileOutput extends Component {
         super(props);
         this.state = {
             controlHeight: 100,
-            indexList: props.indexList ? props.indexList : []
+            indexList: props.indexList ? props.indexList : [],
+            pathName: window.location.pathname
         }
     }
 
@@ -43,7 +44,7 @@ class FileOutput extends Component {
                         // Examine the text in the response as text
                         response.text().then(function (data) {
                             let conf = {};
-                            conf[propertyName] = data;
+                            conf[propertyName] = data.split("\n");
                             object.setState(conf);
                         });
                     }
@@ -66,12 +67,12 @@ class FileOutput extends Component {
 
     getFiles() {
         // manually create links to file
-        const pathName = window.location.pathname;
+        const {pathName} = this.state;
         let urlRaw = pathName.replace("/SDT/cgi-bin/logreader/", "/SDT/cgi-bin/buildlogs/raw/");
         let urlRawConfig = pathName.replace("/SDT/cgi-bin/logreader/", "/SDT/cgi-bin/buildlogs/raw_read_config/");
 
         // will set links to state so it could be passed to child components
-        this.setState({pathName: pathName, urlRaw: urlRaw});
+        this.setState({urlRaw});
 
         this.requestFile({propertyName: 'file', fileUrl: urlRaw});
         // reset Control config
@@ -88,7 +89,11 @@ class FileOutput extends Component {
 
     // called on updating properties
     componentWillReceiveProps(newProps) {
-        this.getFiles();
+        if (window.location.pathname !== this.state.pathName) {
+            // Scroll to element view
+            this.setState({pathName: window.location.pathname});
+            this.getFiles();
+        }
     }
 
     // called after first render
@@ -99,7 +104,6 @@ class FileOutput extends Component {
 
     // called after sequential render
     componentDidUpdate() {
-        // Scroll to element view
         this.goToLine();
     }
 
@@ -107,28 +111,36 @@ class FileOutput extends Component {
         this.setState({controlHeight});
     }
 
+    updateSearchPhrase(searchPhrase){
+        this.setState({searchPhrase});
+    }
+
     render() {
-        let text = this.state.file;
+        let file = this.state.file;
         const problemsToShow = this.state.fileConfig ? this.state.fileConfig.list_to_show : undefined;
         const [lineStart, lineEnd] = this.getLinesNumbers();
-        if (text === null) {
+        if (file === null) {
             return <h3>File does not exist</h3>;
-        } else if (!text) {
+        } else if (!file) {
             return <h3>Loading</h3>;
         }
         return (
             <div className={"container"}>
                 <Controls
+                    data={file}
+                    history={this.props.history}
                     location={this.props.location}
                     pathName={this.state.pathName}
                     urlRaw={this.state.urlRaw}
                     informHeight={this.updateHeight.bind(this)}
+                    updateSearchPhrase={this.updateSearchPhrase.bind(this)}
                     fileConfig={problemsToShow}/>
                 <div className={"AutoSizerWrapper"} style={{height: `calc(100vh - ${this.state.controlHeight}px)`}}>
                     <InfiniteScroller
-                        data={text.split("\n")}
+                        data={file}
                         currentLineSt={lineStart}
                         currentLineEnd={lineEnd}
+                        searchPhrase={this.state.searchPhrase}
                         location={this.props.location}
                         pathName={this.state.pathName}
                     />

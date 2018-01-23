@@ -35,7 +35,7 @@ class Search extends Component {
         if (this.state.lineStart) {
             link += "#" + this.state.lineStart;
         }
-        if (this.state.lineEnd){
+        if (this.state.lineEnd) {
             link += "-" + this.state.lineEnd;
         }
         this.props.history.push(link)

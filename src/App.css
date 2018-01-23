@@ -93,6 +93,10 @@ td.textColumn {
 }
 
 .code-line-focus{
-    background-color: #33cc33;
+    background-color: #a8cca5;
+}
+
+.search-match-class{
+    background-color: #f8f022;
 }
 

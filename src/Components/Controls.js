@@ -1,14 +1,61 @@
 import React, {Component} from "react";
 import uuid from 'uuid'
-import {MenuItem, Nav, Navbar, NavDropdown, NavItem} from "react-bootstrap";
+import {
+    Button,
+    FormControl,
+    FormGroup,
+    Glyphicon,
+    InputGroup,
+    MenuItem,
+    Nav,
+    Navbar,
+    NavDropdown,
+    NavItem
+} from "react-bootstrap";
+import SearchApi from 'js-worker-search'
 
 class Controls extends Component {
     constructor(props) {
         super(props);
+        this.searchApi = new SearchApi();
+        this.updateSearchPrase = props.updateSearchPhrase;
         this.state = {
             height: 100,
-            fileConfig: props.fileConfig ? props.fileConfig : []
+            fileConfig: props.fileConfig ? props.fileConfig : [],
+            searchPosition: 0,
+            searchResultIndexes: []
+        };
+        this.indexData(props.data);
+    }
+
+    indexData(data) {
+        let searchApi = this.searchApi;
+        for (var i = 0; i < data.length; i++) {
+            searchApi.indexDocument(i, data[i]);
         }
+    }
+
+    searchData(phrase) {
+        if (phrase === "") {
+            // if not search phrase, return
+            this.setState({
+                searchPosition: 0,
+                searchResultIndexes: [],
+            });
+            this.updateSearchPrase(phrase);
+            this.props.history.push("/");
+            return;
+        }
+        this.searchApi.search(phrase).then(function (response) {
+            this.setState({
+                searchPosition: 0,
+                searchResultIndexes: response
+            });
+            this.updateSearchPrase(phrase);
+            this.goToSearchedLine(0);
+        }.bind(this), function (response) {
+            console.log("Search error: ", response);
+        })
     }
 
     // this function will
@@ -41,7 +88,52 @@ class Controls extends Component {
         }
     }
 
+    changeSearchPosition(position) {
+        let {searchPosition, searchResultIndexes} = this.state;
+        let newSearchPosition = searchPosition + position;
+        if (0 <= newSearchPosition && newSearchPosition < searchResultIndexes.length) {
+            searchPosition = newSearchPosition;
+        } else if (position < 0) {
+            searchPosition = searchResultIndexes.length - 1;
+        } else if (position > 0) {
+            searchPosition = 0;
+        }
+        this.setState({searchPosition: searchPosition});
+        this.goToSearchedLine(searchPosition)
+    }
+
+    searchNextClick() {
+        this.changeSearchPosition(1);
+    }
+
+    searchPreviousClick() {
+        this.changeSearchPosition(-1);
+    }
+
+    // // called after sequential render
+    // componentDidUpdate() {
+    //     this.goToSearchedLine();
+    // }
+
+    goToSearchedLine(searchPosition) {
+        const {searchResultIndexes} = this.state;
+        const line = searchResultIndexes[searchPosition];
+        this.props.history.push("/" + line);
+    }
+
+    onUpdateProp(e) {
+        this.searchData(e.target.value);
+    }
+
     render() {
+        let searchResults = null;
+        const disableSearch = this.state.searchResultIndexes.length > 0 ? false : true;
+        if (this.state.searchResultIndexes) {
+            searchResults = (this.state.searchResultIndexes.length > 0 ) ? (this.state.searchPosition + 1 ) +
+                "/" + this.state.searchResultIndexes.length : "";
+        }
+
+
         return (
             <div id={"control"} style={{paddingTop: 10}}>
                 <Navbar>
@@ -62,6 +154,33 @@ class Controls extends Component {
                             Get raw file
                         </NavItem>
                     </Nav>
+                    {/*<Navbar.Form pullRight>*/}
+                    <Navbar.Form>
+                        <FormGroup>
+                            <InputGroup>
+                                <FormControl onChange={this.onUpdateProp.bind(this)} bsSize="small" type="text"
+                                             placeholder="Search"/>
+                                <InputGroup.Button>
+                                    {/*<Button bsSize="small" onClick={this.searchNextClick.bind(this)}>*/}
+                                    {/*<Glyphicon glyph="search"/>*/}
+                                    {/*</Button>*/}
+                                    <Button disabled={disableSearch} bsSize="small"
+                                            onClick={this.searchPreviousClick.bind(this)}>
+                                        <Glyphicon glyph="menu-left"/>
+                                    </Button>
+                                </InputGroup.Button>
+                                <InputGroup.Addon>
+                                    {searchResults}
+                                </InputGroup.Addon>
+                                <InputGroup.Button>
+                                    <Button disabled={disableSearch} bsSize="small"
+                                            onClick={this.searchNextClick.bind(this)}>
+                                        <Glyphicon glyph="menu-right"/>
+                                    </Button>
+                                </InputGroup.Button>
+                            </InputGroup>
+                        </FormGroup>
+                    </Navbar.Form>
                 </Navbar>
             </div>
         );

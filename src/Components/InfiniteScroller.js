@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {AutoSizer, CellMeasurer, CellMeasurerCache, List} from "react-virtualized";
+import Highlight from "react-highlighter";
 
 const cellMeasurerCacheConfig = {
     fixedWidth: true,
@@ -21,12 +22,13 @@ class InfiniteScroller extends Component {
 
     renderRow = ({index, parent, key, style}) => {
         let className = "code-line";
-
+        const searchPhrase = this.state.searchPhrase;
+        // TODO if -else logic could be better
         if ((this.state.currentLineSt || this.state.currentLineSt === 0 ) && this.state.currentLineEnd) {
             if (this.state.currentLineSt <= index && this.state.currentLineEnd >= index) {
                 className += " code-line-focus";
             }
-        } else if (this.state.currentLineSt) {
+        } else if (this.state.currentLineSt || this.state.currentLineSt === 0) {
             if (this.state.currentLineSt === index) {
                 className += " code-line-focus";
             }
@@ -44,7 +46,9 @@ class InfiniteScroller extends Component {
                     <span className={"code-index"}>
                             <a href={this.state.pathName + "#/" + index}>{index}: </a>
                     </span>
-                    <span className={"code"} style={{whiteSpace: "pre-wrap"}}>{this.state.data[index]}</span>
+                    <span className={"code"} style={{whiteSpace: "pre-wrap"}}>
+                        <Highlight matchClass="search-match-class" search={searchPhrase}>{this.state.data[index]}</Highlight>
+                    </span>
                 </div>
             </CellMeasurer>
         )
@@ -75,12 +79,13 @@ class InfiniteScroller extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        const {currentLineSt, currentLineEnd, data, location} = newProps;
+        const {currentLineSt, currentLineEnd, data, location, searchPhrase} = newProps;
         this.setState({
             currentLineSt,
             currentLineEnd,
             data,
-            location
+            location,
+            searchPhrase
         });
         this.cache = new CellMeasurerCache(cellMeasurerCacheConfig);
     }
