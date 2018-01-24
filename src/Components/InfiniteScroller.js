@@ -98,8 +98,8 @@ class InfiniteScroller extends Component {
                 {
                     ({width, height}) => {
                         return (
-
                             <List
+                                searchPhrase={this.state.searchPhrase}
                                 goToLine={this.state.currentLineSt}
                                 ref={(ref) => this.myInfiniteList = ref}
                                 rowCount={this.props.data.length}
@@ -108,6 +108,7 @@ class InfiniteScroller extends Component {
                                 deferredMeasurementCache={this.cache}
                                 rowHeight={this.cache.rowHeight}
                                 rowRenderer={this.renderRow}
+                                scrollToAlignment="center"
                             />
                         )
                     }
