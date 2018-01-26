@@ -23,16 +23,21 @@ class Controls extends Component {
             height: 100,
             fileConfig: props.fileConfig ? props.fileConfig : [],
             searchPosition: 0,
-            searchResultIndexes: []
+            searchResultIndexes: [],
+            searchReady: false
         };
         this.indexData(props.data);
     }
 
     indexData(data) {
         let searchApi = this.searchApi;
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             searchApi.indexDocument(i, data[i]);
         }
+        // TODO HACK to set search ready
+        this.searchApi.search("").then(function () {
+            this.setState({searchReady : true})
+        }.bind(this));
     }
 
     searchData(phrase) {
@@ -43,7 +48,7 @@ class Controls extends Component {
                 searchResultIndexes: [],
             });
             this.updateSearchPrase(phrase);
-            this.props.history.push("/");
+            this.props.history.replace("/");
             return;
         }
         this.searchApi.search(phrase).then(function (response) {
@@ -58,7 +63,6 @@ class Controls extends Component {
         })
     }
 
-    // this function will
     getHeight() {
         const height = document.getElementById('control').clientHeight;
         if (this.state.height !== height) {
@@ -110,15 +114,12 @@ class Controls extends Component {
         this.changeSearchPosition(-1);
     }
 
-    // // called after sequential render
-    // componentDidUpdate() {
-    //     this.goToSearchedLine();
-    // }
-
     goToSearchedLine(searchPosition) {
+        // index starts from 0, line from 1
+        console.log(this.props.history);
         const {searchResultIndexes} = this.state;
-        const line = searchResultIndexes[searchPosition];
-        this.props.history.push("/" + line);
+        const line = searchResultIndexes[searchPosition] + 1;
+        this.props.history.replace("/" + line);
     }
 
     onUpdateProp(e) {
@@ -127,13 +128,16 @@ class Controls extends Component {
 
     render() {
         let searchResults = null;
-        const disableSearch = this.state.searchResultIndexes.length > 0 ? false : true;
+        const disableSearch = this.state.searchResultIndexes.length <= 0;
         if (this.state.searchResultIndexes) {
             searchResults = (this.state.searchResultIndexes.length > 0 ) ? (this.state.searchPosition + 1 ) +
                 "/" + this.state.searchResultIndexes.length : "";
         }
-
-
+        let searchFieldPlaceholder = !this.state.searchReady ? "Indexing data" : "Search";
+        let searchField = (
+            <FormControl disabled={!this.state.searchReady} onChange={this.onUpdateProp.bind(this)} bsSize="small" type="text"
+                         placeholder={searchFieldPlaceholder}/>
+        );
         return (
             <div id={"control"} style={{paddingTop: 10}}>
                 <Navbar>
@@ -144,8 +148,9 @@ class Controls extends Component {
                         <NavDropdown title="Issues" id="basic-nav-dropdown">
                             {this.state.fileConfig.map(item => {
                                     return (
+                                        // prop onClick with magic , history replace
                                         <MenuItem key={uuid.v4()}
-                                                  href={this.props.pathName + "#" + item.lineStart + "-" + item.lineEnd}>{item.name}</MenuItem>
+                                                  href={this.props.pathName + "#" + (item.lineStart) + "-" + (item.lineEnd)}>{item.name}</MenuItem>
                                     )
                                 }
                             )}
@@ -158,8 +163,7 @@ class Controls extends Component {
                     <Navbar.Form>
                         <FormGroup>
                             <InputGroup>
-                                <FormControl onChange={this.onUpdateProp.bind(this)} bsSize="small" type="text"
-                                             placeholder="Search"/>
+                                {searchField}
                                 <InputGroup.Button>
                                     {/*<Button bsSize="small" onClick={this.searchNextClick.bind(this)}>*/}
                                     {/*<Glyphicon glyph="search"/>*/}

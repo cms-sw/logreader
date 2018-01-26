@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {AutoSizer, CellMeasurer, CellMeasurerCache, List} from "react-virtualized";
 import Highlight from "react-highlighter";
+import {Link} from "react-router-dom";
 
 const cellMeasurerCacheConfig = {
     fixedWidth: true,
@@ -23,14 +24,15 @@ class InfiniteScroller extends Component {
 
     renderRow = ({index, parent, key, style}) => {
         let className = "code-line";
+        const line_nr = index + 1 ;
         const searchPhrase = this.state.searchPhrase;
         // TODO if -else logic could be better
         if ((this.state.currentLineSt || this.state.currentLineSt === 0 ) && this.state.currentLineEnd) {
-            if (this.state.currentLineSt <= index && this.state.currentLineEnd >= index) {
+            if (this.state.currentLineSt <= line_nr && this.state.currentLineEnd >= line_nr) {
                 className += " code-line-focus";
             }
         } else if (this.state.currentLineSt || this.state.currentLineSt === 0) {
-            if (this.state.currentLineSt === index) {
+            if (this.state.currentLineSt === line_nr) {
                 className += " code-line-focus";
             }
         }
@@ -45,7 +47,7 @@ class InfiniteScroller extends Component {
             >
                 <div style={style} className={className}>
                     <span className={"code-index"}>
-                            <a href={this.state.pathName + "#/" + index}>{index}: </a>
+                            <Link to={"/" + line_nr}>{line_nr}: </Link>
                     </span>
                     <span className={"code"} style={{whiteSpace: "pre-wrap"}}>
                         <Highlight matchClass="search-match-class"
@@ -57,9 +59,9 @@ class InfiniteScroller extends Component {
     };
 
     updatePosition() {
-        const goToLine = this.state.currentLineSt;
-        if (goToLine) {
-            this.myInfiniteList.scrollToRow(goToLine);
+        const index = this.state.currentLineSt - 1 ;
+        if (index) {
+            this.myInfiniteList.scrollToRow(index);
         }
     }
 
@@ -89,7 +91,6 @@ class InfiniteScroller extends Component {
             location,
             searchPhrase
         });
-        // this.cache = new CellMeasurerCache(cellMeasurerCacheConfig);
     }
 
     render() {
@@ -100,7 +101,8 @@ class InfiniteScroller extends Component {
                         return (
                             <List
                                 searchPhrase={this.state.searchPhrase}
-                                goToLine={this.state.currentLineSt}
+                                currentLineSt={this.state.currentLineSt}
+                                currentLineEnd={this.state.currentLineEnd}
                                 ref={(ref) => this.myInfiniteList = ref}
                                 rowCount={this.props.data.length}
                                 width={width}

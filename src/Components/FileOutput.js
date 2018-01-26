@@ -88,7 +88,7 @@ class FileOutput extends Component {
     }
 
     // called on updating properties
-    componentWillReceiveProps(newProps) {
+    componentWillReceiveProps() {
         if (window.location.pathname !== this.state.pathName) {
             // Scroll to element view
             this.setState({pathName: window.location.pathname});
@@ -137,6 +137,7 @@ class FileOutput extends Component {
                     fileConfig={problemsToShow}/>
                 <div className={"AutoSizerWrapper"} style={{height: `calc(100vh - ${this.state.controlHeight}px)`}}>
                     <InfiniteScroller
+                        history={this.props.history}
                         data={file}
                         currentLineSt={lineStart}
                         currentLineEnd={lineEnd}
