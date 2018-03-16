@@ -36,7 +36,7 @@ class Controls extends Component {
         }
         // TODO HACK to set search ready
         this.searchApi.search("").then(function () {
-            this.setState({searchReady : true})
+            this.setState({searchReady: true})
         }.bind(this));
     }
 
@@ -74,7 +74,12 @@ class Controls extends Component {
     // called after first render
     componentDidMount() {
         this.getHeight();
+        window.addEventListener('resize', this.getHeight.bind(this))
     };
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.getHeight.bind(this))
+    }
 
     // called after sequential render
     componentDidUpdate() {
@@ -135,7 +140,8 @@ class Controls extends Component {
         }
         let searchFieldPlaceholder = !this.state.searchReady ? "Indexing data" : "Search";
         let searchField = (
-            <FormControl disabled={!this.state.searchReady} onChange={this.onUpdateProp.bind(this)} bsSize="small" type="text"
+            <FormControl disabled={!this.state.searchReady} onChange={this.onUpdateProp.bind(this)} bsSize="small"
+                         type="text"
                          placeholder={searchFieldPlaceholder}/>
         );
         return (
