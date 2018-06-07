@@ -121,7 +121,6 @@ class Controls extends Component {
 
     goToSearchedLine(searchPosition) {
         // index starts from 0, line from 1
-        console.log(this.props.history);
         const {searchResultIndexes} = this.state;
         const line = searchResultIndexes[searchPosition] + 1;
         this.props.history.replace("/" + line);
