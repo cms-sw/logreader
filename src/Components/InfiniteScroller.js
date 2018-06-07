@@ -24,7 +24,7 @@ class InfiniteScroller extends Component {
 
     renderRow = ({index, parent, key, style}) => {
         let className = "code-line";
-        const line_nr = index + 1 ;
+        const line_nr = index + 1;
         const searchPhrase = this.state.searchPhrase;
         // TODO if -else logic could be better
         if ((this.state.currentLineSt || this.state.currentLineSt === 0 ) && this.state.currentLineEnd) {
@@ -46,12 +46,12 @@ class InfiniteScroller extends Component {
                 rowIndex={index}
             >
                 <div style={style} className={className}>
-                    <span className={"code-index"}>
-                            <Link to={"/" + line_nr}>{line_nr}: </Link>
+                    <span className={"code-index unselectable"}>
+                            <Link to={"/" + line_nr} unselectable={"on"} onselect="return false">{line_nr}: </Link>
                     </span>
                     <span className={"code"} style={{whiteSpace: "pre-wrap"}}>
                         <Highlight matchClass="search-match-class"
-                                   search={searchPhrase ? searchPhrase : ""}>{this.state.data[index]}</Highlight>
+                                   search={searchPhrase ? searchPhrase : ""}>{this.state.data[index]}<br/></Highlight>
                     </span>
                 </div>
             </CellMeasurer>
@@ -59,7 +59,7 @@ class InfiniteScroller extends Component {
     };
 
     updatePosition() {
-        const index = this.state.currentLineSt - 1 ;
+        const index = this.state.currentLineSt - 1;
         if (index) {
             this.myInfiniteList.scrollToRow(index);
         }

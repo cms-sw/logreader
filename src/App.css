@@ -100,3 +100,10 @@ td.textColumn {
     background-color: #f8f022;
 }
 
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
