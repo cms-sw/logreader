@@ -77,12 +77,13 @@ class FileOutput extends Component {
         this.requestFile({propertyName: 'file', fileUrl: urlRaw});
         // reset Control config
         this.setState({fileConfig: undefined});
-        // this.requestFile({
-        //     propertyName: 'fileConfig', fileUrl: urlRawConfig, fileType: "json"
-        // });
         this.requestFile({
-            propertyName: 'fileConfig', fileUrl: 'http://localhost:8000/config.json', fileType: "json"
+            propertyName: 'fileConfig', fileUrl: urlRawConfig, fileType: "json"
         });
+        //// for local development
+        // this.requestFile({
+        //     propertyName: 'fileConfig', fileUrl: 'http://localhost:8000/config.json', fileType: "json"
+        // });
     }
 
     transformFileConfig() {
@@ -143,7 +144,7 @@ class FileOutput extends Component {
     }
 
     render() {
-        this.transformFileConfig(); // TODO delete after not needed
+        this.transformFileConfig(); // TODO delete after some time when not needed
         let file = this.state.file;
         const dropdownToShowList = this.state.fileConfig ? this.state.fileConfig.show_controls : undefined;
         const [lineStart, lineEnd] = this.getLinesNumbers();
