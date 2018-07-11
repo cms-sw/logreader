@@ -150,16 +150,21 @@ class Controls extends Component {
                         <p className={"navbar-text"}>
                             <b>Go to</b>
                         </p>
-                        <NavDropdown title="Issues" id="basic-nav-dropdown">
-                            {this.state.fileConfig.map(item => {
-                                    return (
-                                        // prop onClick with magic , history replace
-                                        <MenuItem key={uuid.v4()}
-                                                  href={this.props.pathName + "#" + (item.lineStart) + "-" + (item.lineEnd)}>{item.name}</MenuItem>
-                                    )
-                                }
-                            )}
-                        </NavDropdown>
+                        {
+                            this.state.fileConfig.map(dropdown => {
+                                return <NavDropdown title={dropdown.name} id="basic-nav-dropdown">
+                                    {dropdown.list.map(item => {
+                                        return (
+                                            // prop onClick with magic , history replace
+                                            <MenuItem key={uuid.v4()}
+                                                      href={this.props.pathName + "#" + (item.lineStart) + "-" + (item.lineEnd)}>{item.name}</MenuItem>
+                                        )
+                                    }
+                                )}
+                            </NavDropdown>
+                            })
+                        }
+
                         <NavItem href={this.props.urlRaw}>
                             Get raw file
                         </NavItem>

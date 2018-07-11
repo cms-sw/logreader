@@ -37,8 +37,8 @@ class FileOutput extends Component {
                             let conf = {};
                             conf[propertyName] = data;
                             object.setState(conf);
-                        }).catch(() => {
-                            console.log('The file is not proper JSON type.');
+                        }).catch((err) => {
+                            console.log('The file is not proper JSON type: ' + err);
                         });
                     } else if (fileType === "text") {
                         // Examine the text in the response as text
@@ -77,9 +77,36 @@ class FileOutput extends Component {
         this.requestFile({propertyName: 'file', fileUrl: urlRaw});
         // reset Control config
         this.setState({fileConfig: undefined});
+        // this.requestFile({
+        //     propertyName: 'fileConfig', fileUrl: urlRawConfig, fileType: "json"
+        // });
         this.requestFile({
-            propertyName: 'fileConfig', fileUrl: urlRawConfig, fileType: "json"
+            propertyName: 'fileConfig', fileUrl: 'http://localhost:8000/config.json', fileType: "json"
         });
+    }
+
+    transformFileConfig() {
+        /** 
+        Check if this.state.fileConfig contains show_controls in old format 
+        and transform to new style. This in order to keep it working with old log_config format.  
+        Could be deleteted few weeks after update after old style log_config are not kept. 
+        */
+        if (!this.state.fileConfig) {
+            return;
+        }
+        let { show_controls, list_to_show } = this.state.fileConfig;
+        if (list_to_show && !show_controls) {
+            this.setState({
+                fileConfig: {
+                    show_controls:
+                    [{
+                        name: "Issues",
+                        list: list_to_show
+                    }],
+                    list_to_show: undefined
+                }
+            })
+        }
     }
 
     // called before first render
@@ -116,8 +143,9 @@ class FileOutput extends Component {
     }
 
     render() {
+        this.transformFileConfig(); // TODO delete after not needed
         let file = this.state.file;
-        const problemsToShow = this.state.fileConfig ? this.state.fileConfig.list_to_show : undefined;
+        const dropdownToShowList = this.state.fileConfig ? this.state.fileConfig.show_controls : undefined;
         const [lineStart, lineEnd] = this.getLinesNumbers();
         if (file === null) {
             return <h3>File does not exist</h3>;
@@ -134,7 +162,7 @@ class FileOutput extends Component {
                     urlRaw={this.state.urlRaw}
                     informHeight={this.updateHeight.bind(this)}
                     updateSearchPhrase={this.updateSearchPhrase.bind(this)}
-                    fileConfig={problemsToShow}/>
+                    fileConfig={dropdownToShowList}/>
                 <div className={"AutoSizerWrapper"} style={{height: `calc(100vh - ${this.state.controlHeight}px)`}}>
                     <InfiniteScroller
                         history={this.props.history}
