@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import InfiniteScroller from "./InfiniteScroller";
 import Controls from "./Controls";
 
@@ -21,34 +21,34 @@ class FileOutput extends Component {
         }
     }
 
-    requestFile({propertyName, fileUrl, mode = 'cors', fileType = 'text'}) {
+    requestFile({ propertyName, fileUrl, mode = 'cors', fileType = 'text' }) {
         const object = this;
-        fetch(fileUrl, {mode: mode})
+        fetch(fileUrl, { mode: mode })
             .then(
-                function (response) {
-                    if (response.status !== 200) {
-                        console.log('Looks like there was a problem. Status Code: ' +
-                            response.status);
-                        return;
-                    }
-                    if (fileType === "json") {
-                        // Examine the text in the response as JSON
-                        response.json().then(function (data) {
-                            let conf = {};
-                            conf[propertyName] = data;
-                            object.setState(conf);
-                        }).catch((err) => {
-                            console.log('The file is not proper JSON type: ' + err);
-                        });
-                    } else if (fileType === "text") {
-                        // Examine the text in the response as text
-                        response.text().then(function (data) {
-                            let conf = {};
-                            conf[propertyName] = data.split("\n");
-                            object.setState(conf);
-                        });
-                    }
+            function (response) {
+                if (response.status !== 200) {
+                    console.log('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                    return;
                 }
+                if (fileType === "json") {
+                    // Examine the text in the response as JSON
+                    response.json().then(function (data) {
+                        let conf = {};
+                        conf[propertyName] = data;
+                        object.setState(conf);
+                    }).catch((err) => {
+                        console.log('The file is not proper JSON type: ' + err);
+                    });
+                } else if (fileType === "text") {
+                    // Examine the text in the response as text
+                    response.text().then(function (data) {
+                        let conf = {};
+                        conf[propertyName] = data.split("\n");
+                        object.setState(conf);
+                    });
+                }
+            }
             )
             .catch(function (err) {
                 let conf = {};
@@ -67,16 +67,16 @@ class FileOutput extends Component {
 
     getFiles() {
         // manually create links to file
-        const {pathName} = this.state;
+        const { pathName } = this.state;
         let urlRaw = pathName.replace("/SDT/cgi-bin/logreader/", "/SDT/cgi-bin/buildlogs/raw/");
         let urlRawConfig = pathName.replace("/SDT/cgi-bin/logreader/", "/SDT/cgi-bin/buildlogs/raw_read_config/");
 
         // will set links to state so it could be passed to child components
-        this.setState({urlRaw});
+        this.setState({ urlRaw });
 
-        this.requestFile({propertyName: 'file', fileUrl: urlRaw});
+        this.requestFile({ propertyName: 'file', fileUrl: urlRaw });
         // reset Control config
-        this.setState({fileConfig: undefined});
+        this.setState({ fileConfig: undefined });
         this.requestFile({
             propertyName: 'fileConfig', fileUrl: urlRawConfig, fileType: "json"
         });
@@ -119,7 +119,7 @@ class FileOutput extends Component {
     componentWillReceiveProps() {
         if (window.location.pathname !== this.state.pathName) {
             // Scroll to element view
-            this.setState({pathName: window.location.pathname});
+            this.setState({ pathName: window.location.pathname });
             this.getFiles();
         }
     }
@@ -136,11 +136,11 @@ class FileOutput extends Component {
     }
 
     updateHeight(controlHeight) {
-        this.setState({controlHeight});
+        this.setState({ controlHeight });
     }
 
-    updateSearchPhrase(searchPhrase){
-        this.setState({searchPhrase});
+    updateSearchPhrase(searchPhrase) {
+        this.setState({ searchPhrase });
     }
 
     render() {
@@ -163,8 +163,8 @@ class FileOutput extends Component {
                     urlRaw={this.state.urlRaw}
                     informHeight={this.updateHeight.bind(this)}
                     updateSearchPhrase={this.updateSearchPhrase.bind(this)}
-                    fileConfig={dropdownToShowList}/>
-                <div className={"AutoSizerWrapper"} style={{height: `calc(100vh - ${this.state.controlHeight}px)`}}>
+                    fileConfig={dropdownToShowList} />
+                <div className={"AutoSizerWrapper"} style={{ height: `calc(100vh - ${this.state.controlHeight}px)` }}>
                     <InfiniteScroller
                         history={this.props.history}
                         data={file}

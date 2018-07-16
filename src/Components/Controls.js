@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import uuid from 'uuid'
 import {
     Button,
@@ -26,7 +26,8 @@ class Controls extends Component {
             searchResultIndexes: [],
             searchReady: false
         };
-        this.indexData(props.data);
+        //// To make search ready on load  
+        // this.indexData(props.data); 
     }
 
     indexData(data) {
@@ -36,7 +37,7 @@ class Controls extends Component {
         }
         // TODO HACK to set search ready
         this.searchApi.search("").then(function () {
-            this.setState({searchReady: true})
+            this.setState({ searchReady: true })
         }.bind(this));
     }
 
@@ -66,7 +67,7 @@ class Controls extends Component {
     getHeight() {
         const height = document.getElementById('control').clientHeight;
         if (this.state.height !== height) {
-            this.setState({height});
+            this.setState({ height });
             this.props.informHeight(height + 20);
         }
     }
@@ -90,15 +91,15 @@ class Controls extends Component {
     componentWillReceiveProps(newProps) {
         if (newProps.fileConfig) {
             let fileConfig = newProps.fileConfig;
-            this.setState({fileConfig});
+            this.setState({ fileConfig });
         } else {
             let fileConfig = [];
-            this.setState({fileConfig});
+            this.setState({ fileConfig });
         }
     }
 
     changeSearchPosition(position) {
-        let {searchPosition, searchResultIndexes} = this.state;
+        let { searchPosition, searchResultIndexes } = this.state;
         let newSearchPosition = searchPosition + position;
         if (0 <= newSearchPosition && newSearchPosition < searchResultIndexes.length) {
             searchPosition = newSearchPosition;
@@ -107,7 +108,7 @@ class Controls extends Component {
         } else if (position > 0) {
             searchPosition = 0;
         }
-        this.setState({searchPosition: searchPosition});
+        this.setState({ searchPosition: searchPosition });
         this.goToSearchedLine(searchPosition)
     }
 
@@ -121,7 +122,7 @@ class Controls extends Component {
 
     goToSearchedLine(searchPosition) {
         // index starts from 0, line from 1
-        const {searchResultIndexes} = this.state;
+        const { searchResultIndexes } = this.state;
         const line = searchResultIndexes[searchPosition] + 1;
         this.props.history.replace("/" + line);
     }
@@ -130,21 +131,63 @@ class Controls extends Component {
         this.searchData(e.target.value);
     }
 
+    enableSearch() {
+        this.setState({ seachEnabled: true })
+        this.indexData(this.props.data);
+    }
+
     render() {
         let searchResults = null;
         const disableSearch = this.state.searchResultIndexes.length <= 0;
         if (this.state.searchResultIndexes) {
-            searchResults = (this.state.searchResultIndexes.length > 0 ) ? (this.state.searchPosition + 1 ) +
+            searchResults = (this.state.searchResultIndexes.length > 0) ? (this.state.searchPosition + 1) +
                 "/" + this.state.searchResultIndexes.length : "";
         }
         let searchFieldPlaceholder = !this.state.searchReady ? "Indexing data" : "Search";
         let searchField = (
             <FormControl disabled={!this.state.searchReady} onChange={this.onUpdateProp.bind(this)} bsSize="small"
-                         type="text"
-                         placeholder={searchFieldPlaceholder}/>
+                type="text"
+                placeholder={searchFieldPlaceholder} />
         );
+
+        let searchControls;
+        if (this.state.seachEnabled) {
+            searchControls = (
+                <Navbar.Form>
+                    <FormGroup>
+                        <InputGroup>
+                            {searchField}
+                            <InputGroup.Button>
+                                <Button disabled={disableSearch} bsSize="small"
+                                    onClick={this.searchPreviousClick.bind(this)}>
+                                    <Glyphicon glyph="menu-left" />
+                                </Button>
+                            </InputGroup.Button>
+                            <InputGroup.Addon>
+                                {searchResults}
+                            </InputGroup.Addon>
+                            <InputGroup.Button>
+                                <Button disabled={disableSearch} bsSize="small"
+                                    onClick={this.searchNextClick.bind(this)}>
+                                    <Glyphicon glyph="menu-right" />
+                                </Button>
+                            </InputGroup.Button>
+                        </InputGroup>
+                    </FormGroup>
+                </Navbar.Form>
+            );
+        } else {
+            searchControls = (
+                <Nav>
+                    <NavItem onClick={this.enableSearch.bind(this)} >
+                        Enable search
+                    </NavItem>
+                </Nav>
+            );
+        }
+
         return (
-            <div id={"control"} style={{paddingTop: 10}}>
+            <div id={"control"} style={{ paddingTop: 10 }}>
                 <Navbar>
                     <Nav>
                         <p className={"navbar-text"}>
@@ -157,44 +200,18 @@ class Controls extends Component {
                                         return (
                                             // prop onClick with magic , history replace
                                             <MenuItem key={uuid.v4()}
-                                                      href={this.props.pathName + "#" + (item.lineStart) + "-" + (item.lineEnd)}>{item.name}</MenuItem>
+                                                href={this.props.pathName + "#" + (item.lineStart) + "-" + (item.lineEnd)}>{item.name}</MenuItem>
                                         )
                                     }
-                                )}
-                            </NavDropdown>
+                                    )}
+                                </NavDropdown>
                             })
                         }
-
                         <NavItem href={this.props.urlRaw}>
                             Get raw file
                         </NavItem>
                     </Nav>
-                    {/*<Navbar.Form pullRight>*/}
-                    <Navbar.Form>
-                        <FormGroup>
-                            <InputGroup>
-                                {searchField}
-                                <InputGroup.Button>
-                                    {/*<Button bsSize="small" onClick={this.searchNextClick.bind(this)}>*/}
-                                    {/*<Glyphicon glyph="search"/>*/}
-                                    {/*</Button>*/}
-                                    <Button disabled={disableSearch} bsSize="small"
-                                            onClick={this.searchPreviousClick.bind(this)}>
-                                        <Glyphicon glyph="menu-left"/>
-                                    </Button>
-                                </InputGroup.Button>
-                                <InputGroup.Addon>
-                                    {searchResults}
-                                </InputGroup.Addon>
-                                <InputGroup.Button>
-                                    <Button disabled={disableSearch} bsSize="small"
-                                            onClick={this.searchNextClick.bind(this)}>
-                                        <Glyphicon glyph="menu-right"/>
-                                    </Button>
-                                </InputGroup.Button>
-                            </InputGroup>
-                        </FormGroup>
-                    </Navbar.Form>
+                    {searchControls}
                 </Navbar>
             </div>
         );

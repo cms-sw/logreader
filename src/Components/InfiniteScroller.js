@@ -47,7 +47,7 @@ class InfiniteScroller extends Component {
             >
                 <div style={style} className={className}>
                     <span className={"code-index unselectable"}>
-                            <Link to={"/" + line_nr} unselectable={"on"} onselect="return false">{line_nr}: </Link>
+                            <Link to={"/" + line_nr} unselectable={"on"} onSelect="return false">{line_nr}: </Link>
                     </span>
                     <span className={"code"} style={{whiteSpace: "pre-wrap"}}>
                         <Highlight matchClass="search-match-class"
