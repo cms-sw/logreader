@@ -189,29 +189,34 @@ class Controls extends Component {
         return (
             <div id={"control"} style={{ paddingTop: 10 }}>
                 <Navbar>
-                    <Nav>
-                        <p className={"navbar-text"}>
-                            <b>Go to</b>
-                        </p>
-                        {
-                            this.state.fileConfig.map(dropdown => {
-                                return <NavDropdown title={dropdown.name} id="basic-nav-dropdown">
-                                    {dropdown.list.map(item => {
-                                        return (
-                                            // prop onClick with magic , history replace
-                                            <MenuItem key={uuid.v4()}
-                                                href={this.props.pathName + "#" + (item.lineStart) + "-" + (item.lineEnd)}>{item.name}</MenuItem>
-                                        )
-                                    }
-                                    )}
-                                </NavDropdown>
-                            })
-                        }
-                        <NavItem href={this.props.urlRaw}>
-                            Get raw file
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            <p>Go to</p>
+                        </Navbar.Brand>
+                        <Navbar.Toggle />
+                    </Navbar.Header>
+                    <Navbar.Collapse>
+                        <Nav>
+                            {
+                                this.state.fileConfig.map(dropdown => {
+                                    return <NavDropdown title={dropdown.name} id="basic-nav-dropdown">
+                                        {dropdown.list.map(item => {
+                                            return (
+                                                // prop onClick with magic , history replace
+                                                <MenuItem key={uuid.v4()}
+                                                    href={this.props.pathName + "#" + (item.lineStart) + "-" + (item.lineEnd)}>{item.name}</MenuItem>
+                                            )
+                                        }
+                                        )}
+                                    </NavDropdown>
+                                })
+                            }
+                            <NavItem href={this.props.urlRaw}>
+                                Get raw file
                         </NavItem>
-                    </Nav>
-                    {searchControls}
+                        </Nav>
+                        {searchControls}
+                    </Navbar.Collapse>
                 </Navbar>
             </div>
         );
