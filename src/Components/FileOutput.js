@@ -80,35 +80,22 @@ class FileOutput extends Component {
         this.requestFile({
             propertyName: 'fileConfig', fileUrl: urlRawConfig, fileType: "json"
         });
-        //// for local development
+
+        // TODO This will add hostname to logReader. Maybe should be added to config object from backend?
+        let fileHostnameUrl = urlRaw.replace(/\/[^/]*$/,"/hostname");
+        this.requestFile({
+            propertyName: 'file_hostname', fileUrl: fileHostnameUrl
+        });
+
+        // // for local development
+        // this.requestFile({
+        //     propertyName: 'file_hostname', fileUrl: "http://localhost:3000/file_hostname"
+        // });
         // this.requestFile({
         //     propertyName: 'fileConfig', fileUrl: 'http://localhost:8000/config.json', fileType: "json"
         // });
     }
 
-    transformFileConfig() {
-        /** 
-        Check if this.state.fileConfig contains show_controls in old format 
-        and transform to new style. This in order to keep it working with old log_config format.  
-        Could be deleteted few weeks after update after old style log_config are not kept. 
-        */
-        if (!this.state.fileConfig) {
-            return;
-        }
-        let { show_controls, list_to_show } = this.state.fileConfig;
-        if (list_to_show && !show_controls) {
-            this.setState({
-                fileConfig: {
-                    show_controls:
-                    [{
-                        name: "Issues",
-                        list: list_to_show
-                    }],
-                    list_to_show: undefined
-                }
-            })
-        }
-    }
 
     // called before first render
     componentWillMount() {
@@ -144,8 +131,14 @@ class FileOutput extends Component {
     }
 
     render() {
-        this.transformFileConfig(); // TODO delete after some time when not needed
         let file = this.state.file;
+        let file_hostname = this.state.file_hostname;
+
+        if (file_hostname){
+            // TODO This will add hostname to logReader. Maybe should be added to config object from backend?
+            file_hostname = file_hostname.concat(["-----" , "" ]);
+            file = file_hostname.concat( file );
+        }
         const dropdownToShowList = this.state.fileConfig ? this.state.fileConfig.show_controls : undefined;
         const [lineStart, lineEnd] = this.getLinesNumbers();
         if (file === null) {
