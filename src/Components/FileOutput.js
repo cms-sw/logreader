@@ -134,11 +134,11 @@ class FileOutput extends Component {
         let file = this.state.file;
         let file_hostname = this.state.file_hostname;
 
-        if (file_hostname){
-            // TODO This will add hostname to logReader. Maybe should be added to config object from backend?
-            file_hostname = file_hostname.concat(["-----" , "" ]);
-            file = file_hostname.concat( file );
-        }
+        // if (file_hostname){
+        //     // TODO This will add hostname to logReader. Maybe should be added to config object from backend?
+        //     file_hostname = file_hostname.concat(["-----" , "" ]);
+        //     file = file_hostname.concat( file );
+        // }
         const dropdownToShowList = this.state.fileConfig ? this.state.fileConfig.show_controls : undefined;
         const [lineStart, lineEnd] = this.getLinesNumbers();
         if (file === null) {
@@ -156,7 +156,9 @@ class FileOutput extends Component {
                     urlRaw={this.state.urlRaw}
                     informHeight={this.updateHeight.bind(this)}
                     updateSearchPhrase={this.updateSearchPhrase.bind(this)}
-                    fileConfig={dropdownToShowList} />
+                    fileConfig={dropdownToShowList}
+                    file_hostname={file_hostname}
+                />
                 <div className={"AutoSizerWrapper"} style={{ height: `calc(100vh - ${this.state.controlHeight}px)` }}>
                     <InfiniteScroller
                         history={this.props.history}

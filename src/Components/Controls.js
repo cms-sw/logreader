@@ -22,6 +22,7 @@ class Controls extends Component {
         this.state = {
             height: 100,
             fileConfig: props.fileConfig ? props.fileConfig : [],
+            file_hostname: props.file_hostname ? props.file_hostname : "",
             searchPosition: 0,
             searchResultIndexes: [],
             searchReady: false
@@ -89,6 +90,7 @@ class Controls extends Component {
 
     // called on updating properties
     componentWillReceiveProps(newProps) {
+        this.setState({file_hostname: newProps.file_hostname})
         if (newProps.fileConfig) {
             let fileConfig = newProps.fileConfig;
             this.setState({ fileConfig });
@@ -212,10 +214,13 @@ class Controls extends Component {
                                 })
                             }
                             <NavItem href={this.props.urlRaw}>
-                                Get raw file
-                        </NavItem>
+                                    Get raw file
+                            </NavItem>
                         </Nav>
                         {searchControls}
+                        {
+                            this.state.file_hostname ? <Navbar.Text pullRight> Hostname: {this.state.file_hostname} </Navbar.Text> : null
+                        }
                     </Navbar.Collapse>
                 </Navbar>
             </div>
