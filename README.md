@@ -9,6 +9,8 @@ Web interface to read text logs.  Based on [create-react-app](https://github.com
 * Highlighting important lines (errors, test).
 * Generating shareable URL with line number.
 
+# NOTES:
+- .htaccess will make sure that the app will not be cached at the price of page being slow to reload.
 
 # Q/A
 
